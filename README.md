@@ -2,7 +2,7 @@
 
 The personal portfolio website of **Sandeep Patro**, Senior Product Manager (Enterprise Software, AI and Digital Transformation). It's a single-page, responsive site built with plain HTML, CSS and JavaScript, with no frameworks and no build step. It's hosted on **GitHub Pages**.
 
-- **Live site:** https://sandeeppatro.github.io/SandeepPortfolio/ *(live once GitHub Pages is enabled; see [Deploying](#deploying-to-github-pages))*
+- **Live site:** https://sandeeppatro.github.io/SandeepPortfolio/
 - **Repository:** https://github.com/SandeepPatro/SandeepPortfolio
 - **LinkedIn:** [linkedin.com/in/sandeeppatro1990](https://www.linkedin.com/in/sandeeppatro1990)
 
@@ -33,9 +33,9 @@ The personal portfolio website of **Sandeep Patro**, Senior Product Manager (Ent
 - **Smooth scrolling** and a subtle fade-in of sections as they appear, both turned off automatically for users who prefer reduced motion.
 - **Accessibility:** skip link, semantic HTML, visible focus outlines, and ARIA labels on the menu and theme buttons.
 - **Print stylesheet:** printing the page (or saving it as PDF) always produces a clean, light, resume-like layout.
-- **SEO and sharing:** a meta description, a `theme-color` that follows the active theme (it tints the mobile browser bar), and Open Graph title and description for link previews on LinkedIn and WhatsApp.
+- **SEO and sharing:** a meta description, a `theme-color` that follows the active theme (it tints the mobile browser bar), and Open Graph tags (title, description, URL and photo) so links shared on LinkedIn and WhatsApp show a preview card with your picture.
 - **Works without JavaScript:** all content stays visible. The theme and menu buttons, which need JS, are hidden.
-- **Lightweight:** no frameworks and no build step. The page is one HTML file, one stylesheet (~17 KB) and one script (~4 KB), and loads only the font weights it uses.
+- **Lightweight:** no frameworks and no build step. The page is one HTML file, one stylesheet (~17 KB), one script (~4 KB) and a 22 KB lazy-loaded photo, and it loads only the font weights it uses.
 
 ## Tech stack
 
@@ -59,7 +59,8 @@ SandeepPortfolio/
 ├── assets/
 │   ├── images/
 │   │   ├── favicon.svg             # Browser tab icon ("SP")
-│   │   └── profile-placeholder.svg # Placeholder; replace with a real photo
+│   │   ├── profile.jpg             # About-section photo (440×440, 2× for sharp screens)
+│   │   └── profile-og.jpg          # Link-preview image (600×600, used by og:image)
 ├── .nojekyll                       # Tells GitHub Pages to serve files as-is
 └── README.md
 ```
@@ -92,11 +93,7 @@ All content lives in `index.html`, and each section is marked with a comment ban
 | Education      | One `<div class="edu-item">` per degree or certification                                       |
 | Contact        | `mailto:`, `tel:`, LinkedIn and GitHub links                                                   |
 
-**Profile photo:** add a square image (for example `assets/images/profile.jpg`, at least 440×440 px), then update the `src` of the `.about-photo` image. To show the photo in link previews too, add an Open Graph image tag. It must be a JPG or PNG and use a full URL, because LinkedIn and WhatsApp ignore SVGs and relative paths:
-
-```html
-<meta property="og:image" content="https://sandeeppatro.github.io/SandeepPortfolio/assets/images/profile.jpg">
-```
+**Profile photo:** the page uses `assets/images/profile.jpg` (440×440). Link previews use `assets/images/profile-og.jpg` (600×600), which the `og:image` tag points to by full URL, because LinkedIn and WhatsApp ignore relative paths and SVGs. To change the photo, replace both files with square JPGs of the same names and sizes. The page crops the photo to a circle.
 
 **Resume:** the **View Resume** button opens a OneDrive share link in a new tab. To host the PDF with the site instead, add it to the repo (for example `assets/Sandeep_Patro_Resume.pdf`) and change the button's `href` to that path.
 
@@ -204,12 +201,18 @@ git push
 - [x] Add a light/dark mode toggle
 - [x] Make the layout work on mobile, tablet and desktop
 - [x] Validate and optimize HTML, CSS and JS
-- [ ] Add a profile photo (and an `og:image` for link previews)
+- [x] Add a profile photo and link-preview image
 - [ ] Confirm the Adobe Creative Cloud and Power BI savings figures, and add them to the Vendor RFPs card
-- [ ] Enable GitHub Pages
+- [x] Enable GitHub Pages
 - [ ] (Optional) Set up a custom domain
 
 ## Changelog
+
+### v1.3 — Profile photo
+- Added Sandeep's profile photo to the About section. The 1.8 MB 1024px PNG became a 22 KB 440px JPG, lazy-loaded.
+- Added a 600×600 link-preview image (`profile-og.jpg`). The checkerboard corners baked into the source photo are replaced with the site background.
+- Added `og:url`, `og:image` and image size/alt tags so shared links show the photo.
+- Removed the placeholder avatar (`profile-placeholder.svg`).
 
 ### v1.2 — Validation & optimization
 - Restored the resume-based page after an editor saved an older copy of `index.html` over it.
